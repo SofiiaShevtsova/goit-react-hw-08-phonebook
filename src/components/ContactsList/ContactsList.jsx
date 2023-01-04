@@ -5,7 +5,7 @@ import StyleList from '../ComponentStyles/PhonebookStyles';
 
 const { ListOfContactsStyle, BtnDeleteContact, IsEmptyList } = StyleList;
 
-const Contacts = props => {
+const ContactsList = props => {
   const { contacts } = props;
   return contacts.length > 0 ? (
     <ListOfContactsStyle>
@@ -25,7 +25,7 @@ const Contacts = props => {
   );
 };
 
-Contacts.propTypes = {
+ContactsList.propTypes = {
   contacts: PropTypes.oneOfType([
     PropTypes.arrayOf(
       PropTypes.shape({
@@ -62,4 +62,4 @@ Contact.propTypes = {
   id: PropTypes.string.isRequired,
 };
 
-export default Contacts;
+export default ContactsList;
