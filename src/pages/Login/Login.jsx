@@ -29,7 +29,6 @@ const Login = () => {
       <Section title={"Log in..."}>
         <Formik
           initialValues={{
-            name: ``,
             email: ``,
             password: '',
           }}

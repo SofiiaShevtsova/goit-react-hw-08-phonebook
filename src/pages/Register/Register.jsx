@@ -1,6 +1,8 @@
+import { useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import StyleList from 'components/ComponentStyles/PhonebookStyles';
+import { registerNewUser } from 'redux/operationPhonebook';
 
 import Section from 'components/Section/Section';
 
@@ -24,12 +26,14 @@ const SignupSchema = Yup.object().shape({
   }),
 
   password: Yup.string()
-    .min(2, 'Must min 2')
+    .min(7, 'Must min 7')
     .max(25, 'Must max 25')
     .required('Required'),
 });
 
 const Register = () => {
+      const dispatch = useDispatch();
+
   return (
     <>
       <Section title={"Register"}>
@@ -42,12 +46,13 @@ const Register = () => {
           validationSchema={SignupSchema}
           onSubmit={(values, actions) => {
             actions.setSubmitting(false);
-            actions.resetForm();
-            return {
+              actions.resetForm();
+              const user ={
               name: values.name.trim(),
               email: values.email.trim(),
               password: values.password.trim(),
-            };
+              }
+              dispatch(registerNewUser(user))
           }}
         >
           {props => (
