@@ -1,9 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getContacts, removeContact, addContact, registerNewUser } from './operationPhonebook';
+import {
+  getContacts,
+  removeContact,
+  addContact,
+  registerNewUser,
+} from './operationPhonebook';
 
 const initialState = {
   user: '',
-  token:null,
+  token: null,
   contacts: [],
   isLoading: false,
   error: null,
@@ -30,15 +35,15 @@ export const phonebookSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(registerNewUser.pending, state => {
-        console.log("yyyy");
+        console.log('yyyy');
       })
-            .addCase(registerNewUser.fulfilled, (state, action) => {
-              console.log("yyyy");
-              state.user = action.payload
-              state.token = action.payload.token
+      .addCase(registerNewUser.fulfilled, (state, action) => {
+        console.log('yyyy');
+        state.user = action.payload;
+        state.token = action.payload.token;
       })
       .addCase(registerNewUser.rejected, state => {
-        console.log("no");
+        console.log('no');
       })
       .addCase(getContacts.pending, state => {
         statusProgress(state);
