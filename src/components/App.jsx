@@ -3,21 +3,25 @@ import { Link, Outlet, Route, Routes, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCurrentUser } from 'redux/operationPhonebook';
 
-import Contacts from 'pages/Contacts/Contacts';
-// import StartPage from 'pages/StartPage/StartPage';
-import Register from 'pages/Register/Register';
-import Login from 'pages/Login/Login';
 import { UserIn } from './UserIn/UserIn';
 
 const StartPageLazy = lazy(() => import('pages/StartPage/StartPage'));
+const ContactsLazy = lazy(() => import('pages/Contacts/Contacts'));
+const RegisterLazy = lazy(() => import('pages/Register/Register'));
+const LoginLazy = lazy(() => import('pages/Login/Login'));
 
 const Loyout = () => {
   const userState = useSelector(state => state.phonebook.user);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
-  dispatch(getCurrentUser())
-}, [dispatch])
+    dispatch(getCurrentUser());
+  }, [dispatch]);
+
+  const PrivateOutlet = () => {
+  const auth = useAuth();
+  return auth ? <Outlet /> : <Navigate to="/login" />;
+}
 
   return (
     <>
@@ -47,9 +51,9 @@ export const App = () => {
       <Routes>
         <Route path="/" element={<Loyout />}>
           <Route index element={<StartPageLazy />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/contacts" element={<Contacts />} />
+          <Route path="/login" element={<LoginLazy />} />
+          <Route path="/register" element={<RegisterLazy />} />
+          <Route path="/contacts" element={<PrivateOutlet/>} />
           <Route path="*" element={<Navigate to="/" />} />
         </Route>
       </Routes>
