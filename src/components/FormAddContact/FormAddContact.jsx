@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/operationPhonebook';
 
 import { Formik } from 'formik';
@@ -29,6 +29,7 @@ const SignupSchema = Yup.object().shape({
 
 const FormAddContact = props => {
   const dispatch = useDispatch();
+  const contactsState = useSelector(state => state.phonebook.contacts);
 
   return (
     <div>
@@ -39,14 +40,19 @@ const FormAddContact = props => {
         }}
         validationSchema={SignupSchema}
         onSubmit={(values, actions) => {
+          actions.setSubmitting(false);
+          actions.resetForm();
+
+          if (contactsState.find(elem => elem.name === values.name.trim())) {
+            alert('You have this contacts');
+            return;
+          }
           dispatch(
             addContact({
               name: values.name.trim(),
-              phone: values.number.trim(),
+              number: values.number.trim(),
             })
           );
-          actions.setSubmitting(false);
-          actions.resetForm();
         }}
       >
         {props => (

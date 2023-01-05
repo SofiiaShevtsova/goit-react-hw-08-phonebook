@@ -9,11 +9,14 @@ import FilterContact from 'components/FilterContact/FilterContact';
 import Loading from 'components/Loading/Loading';
 
 const Contacts = () => {
-      const dispatch = useDispatch();
+  const dispatch = useDispatch();
+    const userState = useSelector(state => state.phonebook.user);
+
 
   useEffect(() => {
-    dispatch(getContacts());
-  }, [dispatch]);
+    if(userState)
+    {dispatch(getContacts());}
+  }, [dispatch, userState]);
 
   const contactsState = useSelector(state => state.phonebook.contacts);
   const filterContacts = useSelector(state => state.phonebook.filter);

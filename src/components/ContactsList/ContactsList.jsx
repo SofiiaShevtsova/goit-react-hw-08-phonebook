@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux/es';
 import { removeContact } from 'redux/operationPhonebook';
 import StyleList from '../ComponentStyles/PhonebookStyles';
@@ -12,7 +12,7 @@ const ContactsList = props => {
       {contacts.map(elem => (
         <Contact
           name={elem.name}
-          phone={elem.phone}
+          phone={elem.number}
           id={elem.id}
           key={elem.id}
         />
@@ -25,18 +25,18 @@ const ContactsList = props => {
   );
 };
 
-ContactsList.propTypes = {
-  contacts: PropTypes.oneOfType([
-    PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        phone: PropTypes.string.isRequired,
-        id: PropTypes.string.isRequired,
-      }),
-      PropTypes.array
-    ),
-  ]),
-};
+// ContactsList.propTypes = {
+//   contacts: PropTypes.oneOfType([
+//     PropTypes.arrayOf(
+//       PropTypes.shape({
+//         name: PropTypes.string.isRequired,
+//         phone: PropTypes.string.isRequired,
+//         id: PropTypes.string.isRequired,
+//       }),
+//       PropTypes.array
+//     ),
+//   ]),
+// };
 
 const Contact = props => {
   const dispatch = useDispatch();
@@ -56,10 +56,10 @@ const Contact = props => {
   );
 };
 
-Contact.propTypes = {
-  name: PropTypes.string.isRequired,
-  phone: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-};
+// Contact.propTypes = {
+//   name: PropTypes.string.isRequired,
+//   phone: PropTypes.string.isRequired,
+//   id: PropTypes.string.isRequired,
+// };
 
 export default ContactsList;

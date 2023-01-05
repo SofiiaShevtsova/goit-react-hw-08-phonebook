@@ -1,5 +1,7 @@
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { useDispatch } from 'react-redux';
+import { logInUser } from 'redux/operationPhonebook';
 import StyleList from 'components/ComponentStyles/PhonebookStyles';
 
 import Section from 'components/Section/Section';
@@ -22,11 +24,11 @@ const SignupSchema = Yup.object().shape({
     .required('Required'),
 });
 
-
 const Login = () => {
-    return (
+  const dispatch = useDispatch();
+  return (
     <>
-      <Section title={"Log in..."}>
+      <Section title={'Log in...'}>
         <Formik
           initialValues={{
             email: ``,
@@ -34,12 +36,13 @@ const Login = () => {
           }}
           validationSchema={SignupSchema}
           onSubmit={(values, actions) => {
-            actions.setSubmitting(false);
-            actions.resetForm();
-            return {
+            const user = {
               email: values.email.trim(),
               password: values.password.trim(),
             };
+            dispatch(logInUser(user));
+            actions.setSubmitting(false);
+            actions.resetForm();
           }}
         >
           {props => (
@@ -58,14 +61,13 @@ const Login = () => {
                   {props.errors.password}
                 </ErrorMessageStyle>
               )}
-
               <BtnStyle type="submit">Log in...</BtnStyle>
             </FormStyle>
           )}
         </Formik>
       </Section>
     </>
-    )
-}
+  );
+};
 
-export default Login
+export default Login;

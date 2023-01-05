@@ -4,6 +4,9 @@ import {
   removeContact,
   addContact,
   registerNewUser,
+  logInUser,
+  logOutUser,
+  getCurrentUser,
 } from './operationPhonebook';
 
 const initialState = {
@@ -35,16 +38,50 @@ export const phonebookSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(registerNewUser.pending, state => {
-        console.log('yyyy');
+        statusProgress(state);
       })
       .addCase(registerNewUser.fulfilled, (state, action) => {
-        console.log('yyyy');
-        state.user = action.payload;
+        state.user = action.payload.user.name;
         state.token = action.payload.token;
+        state.isLoading = false;
       })
-      .addCase(registerNewUser.rejected, state => {
-        console.log('no');
+      .addCase(registerNewUser.rejected, (state, action) => {
+        statusError(state, action);
       })
+      .addCase(logInUser.pending, state => {
+        statusProgress(state);
+      })
+      .addCase(logInUser.fulfilled, (state, action) => {
+        state.user = action.payload.user.name;
+        state.token = action.payload.token;
+        state.isLoading = false;
+      })
+      .addCase(logInUser.rejected, (state, action) => {
+        statusError(state, action);
+      })
+      .addCase(logOutUser.pending, state => {
+        statusProgress(state);
+      })
+      .addCase(logOutUser.fulfilled, state => {
+        state.user = '';
+        state.token = null;
+        state.isLoading = false;
+      })
+      .addCase(logOutUser.rejected, (state, action) => {
+        statusError(state, action);
+      })
+      .addCase(getCurrentUser.pending, state => {
+        statusProgress(state);
+      })
+      .addCase(getCurrentUser.fulfilled, (state, action) => {
+        state.user = action.payload.name;
+        state.isLoading = false;
+        state.error = null;
+      })
+      .addCase(getCurrentUser.rejected, (state, action) => {
+        statusError(state, action);
+      })
+
       .addCase(getContacts.pending, state => {
         statusProgress(state);
       })
@@ -60,12 +97,6 @@ export const phonebookSlice = createSlice({
         statusProgress(state);
       })
       .addCase(addContact.fulfilled, (state, action) => {
-        if (state.contacts.find(elem => elem.name === action.payload.name)) {
-          alert('You have this contacts');
-          state.isLoading = false;
-          state.error = null;
-          return state;
-        }
         state.isLoading = false;
         state.error = null;
         state.contacts = [...state.contacts, action.payload];
