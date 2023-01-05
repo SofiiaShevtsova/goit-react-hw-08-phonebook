@@ -1,5 +1,7 @@
-import { Link } from 'react-router-dom';
+import { Link as ReachLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { List, ListItem, Link } from '@chakra-ui/react';
+import { ExternalLinkIcon } from '@chakra-ui/icons';
 import Section from 'components/Section/Section';
 
 const StartPage = () => {
@@ -8,19 +10,25 @@ const StartPage = () => {
   return (
     <>
       {userState ? (
-        <>Hello {userState}</>
+        <Section title={`Hello ${userState}`}></Section>
       ) : (
         <Section title={'Welcome to website!'}>
-          <ul>
-            <li>
-              If you are registered, log in.
-              <Link to="/login">Log in</Link>
-            </li>
-            <li>
-              If you are not registered, you need to register.
-              <Link to="/register">Register</Link>
-            </li>
-          </ul>
+          <List spacing={3}>
+            <ListItem>
+              If you are registered,{' '}
+              <Link as={ReachLink} to="/login">
+                Log in
+                <ExternalLinkIcon mx="5px" />
+              </Link>
+            </ListItem>
+            <ListItem>
+              If you are not registered, you need to{' '}
+              <Link as={ReachLink} to="/register">
+                Register
+                <ExternalLinkIcon mx="5px" />
+              </Link>
+            </ListItem>
+          </List>
         </Section>
       )}
     </>

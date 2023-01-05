@@ -9,7 +9,6 @@ export const UserIn = () => {
 
   return (
     <>
-      <h3>"Wellcome!!!"</h3>
       <button type="button" onClick={onClick}>
         Log out...
       </button>

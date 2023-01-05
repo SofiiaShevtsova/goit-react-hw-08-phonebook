@@ -1,15 +1,14 @@
 import PropTypes from 'prop-types';
+import { Heading, Box  } from '@chakra-ui/react';
 
-import StyleList from '../ComponentStyles/PhonebookStyles';
-const { SectionContainer, SectionTitle } = StyleList;
 
 const Section = props => {
   const { title, children } = props;
   return (
-    <SectionContainer>
-      <SectionTitle>{title}</SectionTitle>
+    <Box>
+      <Heading as='h2' size='2xl'>{title}</Heading >
       {children}
-    </SectionContainer>
+    </Box>
   );
 };
 
