@@ -1,11 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/operationPhonebook';
 
-import { Formik } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import StyleList from '../ComponentStyles/PhonebookStyles';
-
-const { FormStyle, FieldStyles, BtnStyle, ErrorMessageStyle } = StyleList;
+import { Input, FormControl, FormLabel, FormErrorMessage, VStack, Button } from '@chakra-ui/react';
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string()
@@ -32,7 +30,7 @@ const FormAddContact = props => {
   const contactsState = useSelector(state => state.phonebook.contacts);
 
   return (
-    <div>
+    <>
       <Formik
         initialValues={{
           name: ``,
@@ -56,27 +54,42 @@ const FormAddContact = props => {
         }}
       >
         {props => (
-          <FormStyle>
-            <label htmlFor="name">Name</label>
-            <FieldStyles type="text" name="name" />
-            {props.errors.name && (
-              <ErrorMessageStyle id="feedback">
-                {props.errors.name}
-              </ErrorMessageStyle>
-            )}
-            <label htmlFor="number">Number</label>
-            <FieldStyles type="tel" name="number" />
-            {props.errors.number && (
-              <ErrorMessageStyle id="feedback">
+          <Form>
+            <VStack spacing={6} align="flex-start" w="400px">
+              <FormControl>
+                  <FormLabel htmlFor="name">Name</FormLabel>
+                  <Input
+                    as={Field}
+                    variant="outline"
+                    focusBorderColor="teal.400"
+                    type="text"
+                    name="name"
+                  />
+                  {props.errors.name && (
+                    <FormErrorMessage id="feedback">
+                      {props.errors.name}
+                    </FormErrorMessage>
+                  )}
+            </FormControl>
+            <FormControl>
+              <FormLabel htmlFor="number">Number</FormLabel>
+              <Input
+                                  as={Field}
+                    variant="outline"
+                    focusBorderColor="teal.400"
+type="tel" name="number"
+              />{props.errors.number && (
+              <FormErrorMessage id="feedback">
                 {props.errors.number}
-              </ErrorMessageStyle>
+              </FormErrorMessage>
             )}
-
-            <BtnStyle type="submit">Add contact</BtnStyle>
-          </FormStyle>
+            </FormControl></VStack>
+                
+            <Button type="submit" colorScheme='teal' _hover={{ bg: 'gray', color: "white" }}>Add contact</Button>
+          </Form>
         )}
       </Formik>
-    </div>
+    </>
   );
 };
 

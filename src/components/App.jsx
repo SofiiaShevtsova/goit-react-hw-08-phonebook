@@ -26,7 +26,7 @@ function ToggleTheme() {
   const { colorMode, toggleColorMode } = useColorMode();
   return (
     <>
-      <Button onClick={toggleColorMode}>
+      <Button onClick={toggleColorMode} pos="fixed" bottom={'30px'} left={"45%"} zIndex={2}>
         Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
       </Button>
     </>
@@ -62,9 +62,9 @@ const Loyout = () => {
           </BreadcrumbItem>
         </Breadcrumb>
         <Spacer />
-                {userState && <UserIn />}
+        {userState && <UserIn />}
       </Flex>
-      <Center >
+      <Center>
         <Suspense
           fallback={
             <Spinner
@@ -100,7 +100,7 @@ export const App = () => {
       fontWeight="semibold"
       letterSpacing="wide"
       fontSize="xs"
-      textAlign='center'
+      textAlign="center"
     >
       <Routes>
         <Route path="/" element={<Loyout />}>
@@ -132,7 +132,7 @@ export const App = () => {
           <Route path="*" element={<Navigate to="/" />} />
         </Route>
       </Routes>
-              <ToggleTheme />
+      <ToggleTheme/>
     </Box>
   );
 };

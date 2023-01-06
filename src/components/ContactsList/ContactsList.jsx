@@ -1,14 +1,13 @@
 // import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux/es';
 import { removeContact } from 'redux/operationPhonebook';
-import StyleList from '../ComponentStyles/PhonebookStyles';
-
-const { ListOfContactsStyle, BtnDeleteContact, IsEmptyList } = StyleList;
+import { List, Heading, ListItem, ListIcon, Button } from '@chakra-ui/react';
+import { PhoneIcon } from '@chakra-ui/icons';
 
 const ContactsList = props => {
   const { contacts } = props;
   return contacts.length > 0 ? (
-    <ListOfContactsStyle>
+    <List spacing={3}>
       {contacts.map(elem => (
         <Contact
           name={elem.name}
@@ -17,10 +16,12 @@ const ContactsList = props => {
           key={elem.id}
         />
       ))}
-    </ListOfContactsStyle>
+    </List>
   ) : (
     <>
-      <IsEmptyList>"There is no contacts"</IsEmptyList>
+      <Heading as="h4" size="md" color="red.400">
+        "There is no contacts"
+      </Heading>
     </>
   );
 };
@@ -47,12 +48,19 @@ const Contact = props => {
 
   const { name, phone, id } = props;
   return (
-    <li>
+    <ListItem>
+      <ListIcon as={PhoneIcon} color="teal.500" />
       {name}: <span>{phone}</span>
-      <BtnDeleteContact type="button" id={id} onClick={contsctToRemove}>
+      <Button
+        colorScheme="teal"
+        size="xs"
+        type="button"
+        id={id}
+        onClick={contsctToRemove}
+      >
         Delete
-      </BtnDeleteContact>
-    </li>
+      </Button>
+    </ListItem>
   );
 };
 

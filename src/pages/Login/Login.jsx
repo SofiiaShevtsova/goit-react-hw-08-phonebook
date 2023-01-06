@@ -1,12 +1,17 @@
-import { Formik } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
+import {
+  Button,
+  Input,
+  VStack,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+} from '@chakra-ui/react';
 import { logInUser } from 'redux/operationPhonebook';
-import StyleList from 'components/ComponentStyles/PhonebookStyles';
 
 import Section from 'components/Section/Section';
-
-const { FormStyle, FieldStyles, BtnStyle, ErrorMessageStyle } = StyleList;
 
 const SignupSchema = Yup.object().shape({
   email: Yup.mixed().test({
@@ -46,23 +51,48 @@ const Login = () => {
           }}
         >
           {props => (
-            <FormStyle>
-              <label htmlFor="email">Email</label>
-              <FieldStyles type="email" name="email" />
-              {props.errors.email && (
-                <ErrorMessageStyle id="feedback">
-                  {props.errors.email}
-                </ErrorMessageStyle>
-              )}
-              <label htmlFor="password">Password</label>
-              <FieldStyles type="text" name="password" />
-              {props.errors.password && (
-                <ErrorMessageStyle id="feedback">
-                  {props.errors.password}
-                </ErrorMessageStyle>
-              )}
-              <BtnStyle type="submit">Log in...</BtnStyle>
-            </FormStyle>
+            <Form>
+              <VStack spacing={6} align="flex-start" w="400px">
+                <FormControl>
+                  <FormLabel htmlFor="email">Email</FormLabel>
+                  <Input
+                    as={Field}
+                    variant="outline"
+                    focusBorderColor="teal.400"
+                    type="email"
+                    name="email"
+                  />
+                  {props.errors.email && (
+                    <FormErrorMessage id="feedback">
+                      {props.errors.email}
+                    </FormErrorMessage>
+                  )}
+                </FormControl>
+                <FormControl>
+                  <FormLabel htmlFor="password">Password</FormLabel>
+                  <Input
+                    as={Field}
+                    variant="outline"
+                    focusBorderColor="teal.400"
+                    type="text"
+                    name="password"
+                  />
+                  {props.errors.password && (
+                    <FormErrorMessage id="feedback">
+                      {props.errors.password}
+                    </FormErrorMessage>
+                  )}
+                </FormControl>
+              </VStack>
+
+              <Button
+                type="submit"
+                colorScheme="teal"
+                _hover={{ bg: 'gray', color: 'white' }}
+              >
+                Log in...
+              </Button>
+            </Form>
           )}
         </Formik>
       </Section>

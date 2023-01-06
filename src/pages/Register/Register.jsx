@@ -1,12 +1,17 @@
 import { useDispatch } from 'react-redux';
-import { Formik } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import StyleList from 'components/ComponentStyles/PhonebookStyles';
+import {
+  Button,
+  Input,
+  VStack,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+} from '@chakra-ui/react';
 import { registerNewUser } from 'redux/operationPhonebook';
 
 import Section from 'components/Section/Section';
-
-const { FormStyle, FieldStyles, BtnStyle, ErrorMessageStyle } = StyleList;
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string()
@@ -32,11 +37,11 @@ const SignupSchema = Yup.object().shape({
 });
 
 const Register = () => {
-      const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   return (
     <>
-      <Section title={"Register"}>
+      <Section title={'Register'}>
         <Formik
           initialValues={{
             name: ``,
@@ -46,41 +51,73 @@ const Register = () => {
           validationSchema={SignupSchema}
           onSubmit={(values, actions) => {
             actions.setSubmitting(false);
-              actions.resetForm();
-              const user ={
+            actions.resetForm();
+            const user = {
               name: values.name.trim(),
               email: values.email.trim(),
               password: values.password.trim(),
-              }
-              dispatch(registerNewUser(user))
+            };
+            dispatch(registerNewUser(user));
           }}
         >
           {props => (
-            <FormStyle>
-              <label htmlFor="name">Name</label>
-              <FieldStyles type="text" name="name" />
-              {props.errors.name && (
-                <ErrorMessageStyle id="feedback">
-                  {props.errors.name}
-                </ErrorMessageStyle>
-              )}
-              <label htmlFor="email">Email</label>
-              <FieldStyles type="email" name="email" />
-              {props.errors.email && (
-                <ErrorMessageStyle id="feedback">
-                  {props.errors.email}
-                </ErrorMessageStyle>
-              )}
-              <label htmlFor="password">Password</label>
-              <FieldStyles type="text" name="password" />
-              {props.errors.password && (
-                <ErrorMessageStyle id="feedback">
-                  {props.errors.password}
-                </ErrorMessageStyle>
-              )}
+            <Form>
+              <VStack spacing={6} align="flex-start" w="400px">
+                <FormControl>
+                  <FormLabel htmlFor="name">Name</FormLabel>
+                  <Input
+                    as={Field}
+                    variant="outline"
+                    focusBorderColor="teal.400"
+                    type="text"
+                    name="name"
+                  />
+                  {props.errors.name && (
+                    <FormErrorMessage id="feedback">
+                      {props.errors.name}
+                    </FormErrorMessage>
+                  )}
+                </FormControl>
 
-              <BtnStyle type="submit">Register</BtnStyle>
-            </FormStyle>
+                <FormControl>
+                  <FormLabel htmlFor="email">Email</FormLabel>
+                  <Input
+                    as={Field}
+                    variant="outline"
+                    focusBorderColor="teal.400"
+                    type="email"
+                    name="email"
+                  />
+                  {props.errors.email && (
+                    <FormErrorMessage id="feedback">
+                      {props.errors.email}
+                    </FormErrorMessage>
+                  )}
+                </FormControl>
+                <FormControl>
+                  <FormLabel htmlFor="password">Password</FormLabel>
+                  <Input
+                    as={Field}
+                    variant="outline"
+                    focusBorderColor="teal.400"
+                    type="text"
+                    name="password"
+                  />
+                  {props.errors.password && (
+                    <FormErrorMessage id="feedback">
+                      {props.errors.password}
+                    </FormErrorMessage>
+                  )}
+                </FormControl>
+              </VStack>
+              <Button
+                type="submit"
+                colorScheme="teal"
+                _hover={{ bg: 'gray', color: 'white' }}
+              >
+                Register
+              </Button>
+            </Form>
           )}
         </Formik>
       </Section>

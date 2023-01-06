@@ -1,11 +1,8 @@
 // import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { findContact } from 'redux/phonebookSlice';
-
-import { Formik } from 'formik';
-import StyleList from '../ComponentStyles/PhonebookStyles';
-
-const { FormStyle, FieldStyles } = StyleList;
+import { Input, FormControl, FormLabel, VStack } from '@chakra-ui/react';
+import { Formik, Form, Field } from 'formik';
 
 const FilterContact = props => {
   const findState = useSelector(state => state.phonebook.filter);
@@ -23,15 +20,22 @@ const FilterContact = props => {
         actions.setSubmitting(false);
       }}
     >
-      <FormStyle>
-        <label htmlFor="filter">Find contacts by name</label>
-        <FieldStyles
-          type="text"
-          name="filter"
-          onChange={filterFun}
-          value={findState}
-        />
-      </FormStyle>
+      <Form>
+        <VStack spacing={6} align="flex-start" w="400px">
+          <FormControl>
+            <FormLabel htmlFor="filter">Find contacts by name</FormLabel>
+            <Input
+              as={Field}
+              variant="outline"
+              focusBorderColor="teal.400"
+              type="text"
+              name="filter"
+              onChange={filterFun}
+              value={findState}
+            />
+          </FormControl>
+        </VStack>
+      </Form>
     </Formik>
   );
 };

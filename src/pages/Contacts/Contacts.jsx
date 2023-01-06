@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getContacts } from 'redux/operationPhonebook';
+import { VStack } from '@chakra-ui/react';
 
 import Section from 'components/Section/Section';
 import ContactsList from 'components/ContactsList/ContactsList';
@@ -10,12 +11,12 @@ import Loading from 'components/Loading/Loading';
 
 const Contacts = () => {
   const dispatch = useDispatch();
-    const userState = useSelector(state => state.phonebook.user);
-
+  const userState = useSelector(state => state.phonebook.user);
 
   useEffect(() => {
-    if(userState)
-    {dispatch(getContacts());}
+    if (userState) {
+      dispatch(getContacts());
+    }
   }, [dispatch, userState]);
 
   const contactsState = useSelector(state => state.phonebook.contacts);
@@ -26,13 +27,16 @@ const Contacts = () => {
     elem.name.toLowerCase().includes(filterContacts)
   );
 
-    return (    <><Section title={'Phonebook'}>
+  return (
+    <VStack>
+      <Section title={'Phonebook'}>
         <FormAddContact />
       </Section>
       <Section title={'Contacts'}>
         <FilterContact />
         {isLoading ? <Loading /> : <ContactsList contacts={contactToFind} />}
-      </Section></>  
-)
-}
-export default Contacts
+      </Section>
+    </VStack>
+  );
+};
+export default Contacts;
