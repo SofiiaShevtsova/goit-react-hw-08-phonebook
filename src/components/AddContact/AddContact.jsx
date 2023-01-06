@@ -10,7 +10,7 @@ import FormAddContact from 'components/FormAddContact/FormAddContact';
 
 export const AddContact = () => {
   return (
-    <Accordion defaultIndex={[0]} allowMultiple>
+    <Accordion defaultIndex={[1]} allowToggle>
       <AccordionItem>
         <h2>
           <AccordionButton>
