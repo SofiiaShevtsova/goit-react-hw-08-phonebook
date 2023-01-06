@@ -26,7 +26,13 @@ function ToggleTheme() {
   const { colorMode, toggleColorMode } = useColorMode();
   return (
     <>
-      <Button onClick={toggleColorMode} pos="fixed" bottom={'30px'} left={"45%"} zIndex={2}>
+      <Button
+        onClick={toggleColorMode}
+        pos="fixed"
+        bottom={'30px'}
+        left={'45%'}
+        zIndex={2}
+      >
         Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
       </Button>
     </>
@@ -132,7 +138,7 @@ export const App = () => {
           <Route path="*" element={<Navigate to="/" />} />
         </Route>
       </Routes>
-      <ToggleTheme/>
+      <ToggleTheme />
     </Box>
   );
 };
