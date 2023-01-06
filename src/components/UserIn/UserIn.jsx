@@ -10,7 +10,13 @@ export const UserIn = () => {
 
   return (
     <>
-      <Button colorScheme='teal' _hover={{ bg: 'gray', color: "white" }} type="button" onClick={onClick}>
+      <Button
+        colorScheme="teal"
+        size={{ base: 'xs', md: 'md', lg: 'md' }}
+        _hover={{ bg: 'gray', color: 'white' }}
+        type="button"
+        onClick={onClick}
+      >
         Log out...
       </Button>
     </>

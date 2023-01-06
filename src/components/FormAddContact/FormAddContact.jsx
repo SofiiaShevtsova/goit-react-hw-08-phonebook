@@ -3,7 +3,14 @@ import { addContact } from 'redux/operationPhonebook';
 
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import { Input, FormControl, FormLabel, FormErrorMessage, VStack, Button } from '@chakra-ui/react';
+import {
+  Input,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  VStack,
+  Button,
+} from '@chakra-ui/react';
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string()
@@ -55,37 +62,52 @@ const FormAddContact = props => {
       >
         {props => (
           <Form>
-            <VStack spacing={6} align="flex-start" w="400px">
+            <VStack
+              spacing={6}
+              align="flex-start"
+              w={[250, 350, 550]}
+              mx="auto"
+            >
               <FormControl>
-                  <FormLabel htmlFor="name">Name</FormLabel>
-                  <Input
-                    as={Field}
-                    variant="outline"
-                    focusBorderColor="teal.400"
-                    type="text"
-                    name="name"
-                  />
-                  {props.errors.name && (
-                    <FormErrorMessage id="feedback">
-                      {props.errors.name}
-                    </FormErrorMessage>
-                  )}
-            </FormControl>
-            <FormControl>
-              <FormLabel htmlFor="number">Number</FormLabel>
-              <Input
-                                  as={Field}
-                    variant="outline"
-                    focusBorderColor="teal.400"
-type="tel" name="number"
-              />{props.errors.number && (
-              <FormErrorMessage id="feedback">
-                {props.errors.number}
-              </FormErrorMessage>
-            )}
-            </FormControl></VStack>
-                
-            <Button type="submit" colorScheme='teal' _hover={{ bg: 'gray', color: "white" }}>Add contact</Button>
+                <FormLabel htmlFor="name">Name</FormLabel>
+                <Input
+                  as={Field}
+                  variant="outline"
+                  focusBorderColor="teal.400"
+                  type="text"
+                  name="name"
+                />
+                {props.errors.name && (
+                  <FormErrorMessage id="feedback">
+                    {props.errors.name}
+                  </FormErrorMessage>
+                )}
+              </FormControl>
+              <FormControl>
+                <FormLabel htmlFor="number">Number</FormLabel>
+                <Input
+                  as={Field}
+                  variant="outline"
+                  focusBorderColor="teal.400"
+                  type="tel"
+                  name="number"
+                />
+                {props.errors.number && (
+                  <FormErrorMessage id="feedback">
+                    {props.errors.number}
+                  </FormErrorMessage>
+                )}
+              </FormControl>
+            </VStack>
+
+            <Button
+              type="submit"
+              colorScheme="teal"
+              _hover={{ bg: 'gray', color: 'white' }}
+              marginTop="30px"
+            >
+              Add contact
+            </Button>
           </Form>
         )}
       </Formik>

@@ -21,7 +21,13 @@ const FilterContact = props => {
       }}
     >
       <Form>
-        <VStack spacing={6} align="flex-start" w="400px">
+        <VStack
+          spacing={6}
+          align="flex-start"
+          w={[250, 400, 600]}
+          mx="auto"
+          py="20px"
+        >
           <FormControl>
             <FormLabel htmlFor="filter">Find contacts by name</FormLabel>
             <Input

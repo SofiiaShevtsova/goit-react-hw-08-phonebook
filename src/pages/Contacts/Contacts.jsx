@@ -5,9 +5,9 @@ import { VStack } from '@chakra-ui/react';
 
 import Section from 'components/Section/Section';
 import ContactsList from 'components/ContactsList/ContactsList';
-import FormAddContact from 'components/FormAddContact/FormAddContact';
 import FilterContact from 'components/FilterContact/FilterContact';
 import Loading from 'components/Loading/Loading';
+import { AddContact } from 'components/AddContact/AddContact';
 
 const Contacts = () => {
   const dispatch = useDispatch();
@@ -29,8 +29,8 @@ const Contacts = () => {
 
   return (
     <VStack>
-      <Section title={'Phonebook'}>
-        <FormAddContact />
+      <Section>
+        <AddContact />
       </Section>
       <Section title={'Contacts'}>
         <FilterContact />

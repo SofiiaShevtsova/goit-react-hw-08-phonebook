@@ -33,7 +33,7 @@ const Login = () => {
   const dispatch = useDispatch();
   return (
     <>
-      <Section title={'Log in...'}>
+      <Section>
         <Formik
           initialValues={{
             email: ``,
@@ -52,7 +52,12 @@ const Login = () => {
         >
           {props => (
             <Form>
-              <VStack spacing={6} align="flex-start" w="400px">
+              <VStack
+                spacing={6}
+                align="flex-start"
+                w={[250, 400, 600]}
+                mx="auto"
+              >
                 <FormControl>
                   <FormLabel htmlFor="email">Email</FormLabel>
                   <Input
@@ -88,6 +93,7 @@ const Login = () => {
               <Button
                 type="submit"
                 colorScheme="teal"
+                marginTop="30px"
                 _hover={{ bg: 'gray', color: 'white' }}
               >
                 Log in...

@@ -41,7 +41,7 @@ const Register = () => {
 
   return (
     <>
-      <Section title={'Register'}>
+      <Section>
         <Formik
           initialValues={{
             name: ``,
@@ -62,7 +62,12 @@ const Register = () => {
         >
           {props => (
             <Form>
-              <VStack spacing={6} align="flex-start" w="400px">
+              <VStack
+                spacing={6}
+                align="flex-start"
+                w={[250, 400, 600]}
+                mx="auto"
+              >
                 <FormControl>
                   <FormLabel htmlFor="name">Name</FormLabel>
                   <Input
@@ -113,6 +118,7 @@ const Register = () => {
               <Button
                 type="submit"
                 colorScheme="teal"
+                marginTop="30px"
                 _hover={{ bg: 'gray', color: 'white' }}
               >
                 Register

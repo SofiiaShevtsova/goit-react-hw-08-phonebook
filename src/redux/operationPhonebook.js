@@ -47,11 +47,11 @@ export const logOutUser = createAsyncThunk('login/outUser', async () => {
 export const getCurrentUser = createAsyncThunk(
   'tokin/getUser',
   async (_, thunkAPI) => {
-          const state = thunkAPI.getState();
-      if (!state.phonebook.token) {
-        return thunkAPI.rejectWithValue("No")
+    const state = thunkAPI.getState();
+    if (!state.phonebook.token) {
+      return thunkAPI.rejectWithValue('No');
     }
-          currentToken.set(state.phonebook.token);
+    currentToken.set(state.phonebook.token);
     try {
       const response = await axios.get('/users/current');
       return response.data;

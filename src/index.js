@@ -8,7 +8,6 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { Chakra } from 'components/theme';
 import './index.css';
 
-
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Chakra>

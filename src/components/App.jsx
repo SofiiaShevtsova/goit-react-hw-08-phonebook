@@ -14,7 +14,7 @@ import {
   Box,
   Center,
 } from '@chakra-ui/react';
-
+import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { UserIn } from './UserIn/UserIn';
 
 const StartPageLazy = lazy(() => import('pages/StartPage/StartPage'));
@@ -27,13 +27,18 @@ function ToggleTheme() {
   return (
     <>
       <Button
+        colorScheme="teal"
         onClick={toggleColorMode}
         pos="fixed"
-        bottom={'30px'}
-        left={'45%'}
+        top={'25%'}
+        right={'30px'}
         zIndex={2}
       >
-        Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
+        {colorMode === 'light' ? (
+          <MoonIcon boxSize={6} />
+        ) : (
+          <SunIcon boxSize={6} />
+        )}
       </Button>
     </>
   );
@@ -49,20 +54,32 @@ const Loyout = () => {
 
   return (
     <>
-      <Flex>
+      <Flex w={[320, 420, 800]} justifyContent="center" mx="auto" py="20px">
         <Breadcrumb
           spacing="20px"
           separator=""
           fontWeight="medium"
-          fontSize="sm"
+          fontSize={{ base: '16px', md: '24px', lg: '24px' }}
         >
           <BreadcrumbItem>
-            <BreadcrumbLink as={Link} to="/">
+            <BreadcrumbLink
+              as={Link}
+              to="/"
+              transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
+              _hover={{ color: 'teal' }}
+              _focus={{ color: 'teal' }}
+            >
               Start page
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbItem>
-            <BreadcrumbLink as={Link} to="/contacts">
+            <BreadcrumbLink
+              as={Link}
+              to="/contacts"
+              transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
+              _hover={{ color: 'teal' }}
+              _focus={{ color: 'teal' }}
+            >
               Contacts
             </BreadcrumbLink>
           </BreadcrumbItem>
@@ -102,7 +119,7 @@ export const App = () => {
   return (
     <Box
       w="100%"
-      p={4}
+      p="30px"
       fontWeight="semibold"
       letterSpacing="wide"
       fontSize="xs"
