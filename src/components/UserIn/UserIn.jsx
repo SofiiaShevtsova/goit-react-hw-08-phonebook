@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { logOutUser } from 'redux/operationPhonebook';
+import { Button } from '@chakra-ui/react';
 
 export const UserIn = () => {
   const dispatch = useDispatch();
@@ -9,9 +10,9 @@ export const UserIn = () => {
 
   return (
     <>
-      <button type="button" onClick={onClick}>
+      <Button colorScheme='teal' _hover={{ bg: 'gray', color: "white" }} type="button" onClick={onClick}>
         Log out...
-      </button>
+      </Button>
     </>
   );
 };

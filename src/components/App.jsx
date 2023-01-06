@@ -12,6 +12,7 @@ import {
   Spacer,
   Spinner,
   Box,
+  Center,
 } from '@chakra-ui/react';
 
 import { UserIn } from './UserIn/UserIn';
@@ -61,10 +62,9 @@ const Loyout = () => {
           </BreadcrumbItem>
         </Breadcrumb>
         <Spacer />
-        <ToggleTheme />
+                {userState && <UserIn />}
       </Flex>
-      <>
-        {userState && <UserIn />}
+      <Center >
         <Suspense
           fallback={
             <Spinner
@@ -78,7 +78,7 @@ const Loyout = () => {
         >
           <Outlet />
         </Suspense>
-      </>
+      </Center>
     </>
   );
 };
@@ -132,6 +132,7 @@ export const App = () => {
           <Route path="*" element={<Navigate to="/" />} />
         </Route>
       </Routes>
+              <ToggleTheme />
     </Box>
   );
 };
