@@ -5,13 +5,14 @@ import { ExternalLinkIcon } from '@chakra-ui/icons';
 import Section from 'components/Section/Section';
 
 const StartPage = () => {
-  const userState = useSelector(state => state.phonebook.user);
+  const userToken = useSelector(state => state.phonebook.token);
+  const userName = useSelector(state => state.phonebook.user);
 
   return (
     <>
-      {userState ? (
+      {userToken ? (
         <Section
-          title={`Hello ${userState.charAt(0).toUpperCase()}${userState.slice(
+          title={`Hello ${userName.charAt(0).toUpperCase()}${userName.slice(
             1
           )}!`}
         ></Section>
