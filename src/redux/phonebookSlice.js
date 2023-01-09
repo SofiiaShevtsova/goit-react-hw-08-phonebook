@@ -44,6 +44,7 @@ export const phonebookSlice = createSlice({
         state.user = action.payload.user.name;
         state.token = action.payload.token;
         state.isLoading = false;
+        state.error = null;
       })
       .addCase(registerNewUser.rejected, (state, action) => {
         statusError(state, action);
@@ -55,6 +56,7 @@ export const phonebookSlice = createSlice({
         state.user = action.payload.user.name;
         state.token = action.payload.token;
         state.isLoading = false;
+        state.error = null;
       })
       .addCase(logInUser.rejected, (state, action) => {
         statusError(state, action);
@@ -66,6 +68,7 @@ export const phonebookSlice = createSlice({
         state.user = '';
         state.token = null;
         state.isLoading = false;
+        state.error = null;
       })
       .addCase(logOutUser.rejected, (state, action) => {
         statusError(state, action);
@@ -79,7 +82,7 @@ export const phonebookSlice = createSlice({
         state.error = null;
       })
       .addCase(getCurrentUser.rejected, (state, action) => {
-        statusError(state, action);
+        state.isLoading = false;
       })
 
       .addCase(getContacts.pending, state => {

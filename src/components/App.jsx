@@ -13,6 +13,9 @@ import {
   Spinner,
   Box,
   Center,
+  Alert,
+  AlertIcon,
+  AlertTitle,
 } from '@chakra-ui/react';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { UserIn } from './UserIn/UserIn';
@@ -116,6 +119,8 @@ const PublicRoute = ({ children, user }) => {
 
 export const App = () => {
   const userState = useSelector(state => state.phonebook.user);
+  const errorMessage = useSelector(state => state.phonebook.error);
+
   return (
     <Box
       w="100%"
@@ -156,6 +161,12 @@ export const App = () => {
         </Route>
       </Routes>
       <ToggleTheme />
+      {errorMessage && (
+        <Alert status="error" backgroundColor="red.500" pos="fixed" top={'5%'} right="30%" w="400px" zIndex={2}>
+          <AlertIcon />
+          <AlertTitle>{errorMessage}</AlertTitle>
+        </Alert>
+      )}
     </Box>
   );
 };
