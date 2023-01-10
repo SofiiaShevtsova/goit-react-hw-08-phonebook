@@ -17,9 +17,6 @@ export const registerNewUser = createAsyncThunk(
   async (user, thunkAPI) => {
     try {
       const response = await axios.post('/users/signup', user);
-      if (response.status !== 201) {
-        return thunkAPI.rejectWithValue('Not register!');
-      }
       currentToken.set(response.data.token);
       return response.data;
     } catch (e) {
@@ -33,9 +30,6 @@ export const logInUser = createAsyncThunk(
   async (user, thunkAPI) => {
     try {
       const response = await axios.post('/users/login', user);
-      if (response.status !== 200) {
-        return thunkAPI.rejectWithValue('Not founded!');
-      }
       currentToken.set(response.data.token);
       return response.data;
     } catch (e) {
@@ -44,14 +38,17 @@ export const logInUser = createAsyncThunk(
   }
 );
 
-export const logOutUser = createAsyncThunk('login/outUser', async () => {
-  try {
-    await axios.post('/users/logout');
-    currentToken.remove();
-  } catch (e) {
-    return alert(e);
+export const logOutUser = createAsyncThunk(
+  'login/outUser',
+  async (_, thunkAPI) => {
+    try {
+      await axios.post('/users/logout');
+      currentToken.remove();
+    } catch (e) {
+      return thunkAPI.rejectWithValue('Not founded!');
+    }
   }
-});
+);
 
 export const getCurrentUser = createAsyncThunk(
   'tokin/getUser',
@@ -63,12 +60,9 @@ export const getCurrentUser = createAsyncThunk(
     currentToken.set(state.phonebook.token);
     try {
       const response = await axios.get('/users/current');
-            if (response.status !== 200) {
-        return thunkAPI.rejectWithValue('Not founded!');
-      }
       return response.data;
     } catch (e) {
-        return thunkAPI.rejectWithValue('Not founded!');
+      return thunkAPI.rejectWithValue('Not founded!');
     }
   }
 );
@@ -78,36 +72,33 @@ export const getContacts = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await axios.get('/contacts');
-      if (response.statusText !== 'OK') {
-        return thunkAPI.rejectWithValue('Not founded!');
-      }
       return response.data;
     } catch (e) {
-        return thunkAPI.rejectWithValue('Not founded!');
+      return thunkAPI.rejectWithValue('Not founded!');
     }
   }
 );
 
 export const addContact = createAsyncThunk(
   'contacts/addContacts',
-  async contact => {
+  async (contact, thunkAPI) => {
     try {
       const response = await axios.post('/contacts', contact);
       return response.data;
     } catch (e) {
-      return e;
+      return thunkAPI.rejectWithValue('Can not do it!');
     }
   }
 );
 
 export const removeContact = createAsyncThunk(
   'contacts/removeContacts',
-  async id => {
+  async (id, thunkAPI) => {
     try {
       const response = await axios.delete(`/contacts/${id}`);
       return response.data.id;
     } catch (e) {
-      return e;
+      return thunkAPI.rejectWithValue('Can not do it!');
     }
   }
 );
