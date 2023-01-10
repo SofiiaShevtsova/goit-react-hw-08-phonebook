@@ -83,6 +83,7 @@ export const phonebookSlice = createSlice({
       })
       .addCase(getCurrentUser.rejected, (state, action) => {
         state.isLoading = false;
+        state.token = null
       })
 
       .addCase(getContacts.pending, state => {
