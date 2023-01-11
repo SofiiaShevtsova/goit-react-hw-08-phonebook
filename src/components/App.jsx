@@ -105,11 +105,11 @@ const Loyout = () => {
 };
 
 const PrivateOutlet = ({ children, user }) => {
-  return user !== '' ? children : <Navigate to="/" />;
+  return user ? children : <Navigate to="/" />;
 };
 
 const PublicRoute = ({ children, user }) => {
-  return user === '' ? children : <Navigate to="/" />;
+  return !user ? children : <Navigate to="/" />;
 };
 
 export const App = () => {
@@ -134,7 +134,7 @@ export const App = () => {
         <Route path="/" element={<Loyout />}>
           <Route index element={<StartPageLazy />} />
           <Route
-            path="/login"
+            path="login"
             element={
               <PublicRoute user={userState}>
                 <LoginLazy />
@@ -142,7 +142,7 @@ export const App = () => {
             }
           />
           <Route
-            path="/register"
+            path="register"
             element={
               <PublicRoute user={userState}>
                 <RegisterLazy />
