@@ -110,15 +110,15 @@ const Loyout = () => {
 };
 
 const PrivateOutlet = ({ children, user }) => {
-  return user !== '' ? children : <Navigate to="/" />;
+  return user ? children : <Navigate to="/" />;
 };
 
 const PublicRoute = ({ children, user }) => {
-  return user === '' ? children : <Navigate to="/" />;
+  return !user ? children : <Navigate to="/" />;
 };
 
 export const App = () => {
-  const userState = useSelector(state => state.phonebook.user);
+  const tokenState = useSelector(state => state.phonebook.token);
   const errorMessage = useSelector(state => state.phonebook.error);
 
   return (
@@ -136,7 +136,7 @@ export const App = () => {
           <Route
             path="/login"
             element={
-              <PublicRoute user={userState}>
+              <PublicRoute user={tokenState}>
                 <LoginLazy />
               </PublicRoute>
             }
@@ -144,7 +144,7 @@ export const App = () => {
           <Route
             path="/register"
             element={
-              <PublicRoute user={userState}>
+              <PublicRoute user={tokenState}>
                 <RegisterLazy />
               </PublicRoute>
             }
@@ -152,7 +152,7 @@ export const App = () => {
           <Route
             path="/contacts"
             element={
-              <PrivateOutlet user={userState}>
+              <PrivateOutlet user={tokenState}>
                 <ContactsLazy />
               </PrivateOutlet>
             }
