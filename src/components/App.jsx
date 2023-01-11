@@ -150,7 +150,7 @@ export const App = () => {
             }
           />
           <Route
-            path="/contacts"
+            path="contacts"
             element={
               <PrivateOutlet user={userState}>
                 <ContactsLazy />
