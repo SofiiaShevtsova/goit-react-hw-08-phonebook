@@ -49,12 +49,7 @@ function ToggleTheme() {
 
 const Loyout = () => {
   const userState = useSelector(state => state.phonebook.user);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getCurrentUser());
-  }, [dispatch]);
-
+ 
   return (
     <>
       <Flex w={[320, 420, 800]} justifyContent="center" mx="auto" py="20px">
@@ -120,6 +115,11 @@ const PublicRoute = ({ children, user }) => {
 export const App = () => {
   const userState = useSelector(state => state.phonebook.user);
   const errorMessage = useSelector(state => state.phonebook.error);
+   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCurrentUser());
+  }, [dispatch]);
 
   return (
     <Box
