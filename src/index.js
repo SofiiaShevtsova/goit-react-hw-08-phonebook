@@ -10,16 +10,14 @@ import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    
-      <BrowserRouter basename='/goit-react-hw-08-phonebook'>
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            <Chakra>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter basename="/goit-react-hw-08-phonebook/">
+          <Chakra>
             <App />
-            </Chakra>
-          </PersistGate>
-        </Provider>
-      </BrowserRouter>
-    
+          </Chakra>
+        </BrowserRouter>
+      </PersistGate>
+    </Provider>
   </React.StrictMode>
 );
