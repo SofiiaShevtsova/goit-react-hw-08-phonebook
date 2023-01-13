@@ -11,7 +11,7 @@ import {
   Flex,
   Spacer,
 } from '@chakra-ui/react';
-import { PhoneIcon, DeleteIcon } from '@chakra-ui/icons';
+import { PhoneIcon } from '@chakra-ui/icons';
 
 const ContactsList = props => {
   const { contacts } = props;
@@ -54,13 +54,14 @@ ContactsList.propTypes = {
 };
 
 const Contact = props => {
+  const { name, phone, id } = props;
+
   const dispatch = useDispatch();
 
-  const contsctToRemove = event => {
-    dispatch(removeContact(event.target.attributes.id.nodeValue));
+  const contactToRemove = event => {
+    dispatch(removeContact(event.target.id));
   };
 
-  const { name, phone, id } = props;
   return (
     <ListItem>
       <Flex>
@@ -76,9 +77,9 @@ const Contact = props => {
           marginLeft="5px"
           type="button"
           id={id}
-          onClick={contsctToRemove}
+          onClick={contactToRemove}
         >
-          <DeleteIcon boxSize={4} />
+          Delete
         </Button>
       </Flex>
     </ListItem>
