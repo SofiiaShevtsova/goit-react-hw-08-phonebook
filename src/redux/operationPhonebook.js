@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
+axios.defaults.baseURL = 'https://privatcontacts.onrender.com/api';
 
 const currentToken = {
   set(token) {
@@ -16,8 +16,7 @@ export const registerNewUser = createAsyncThunk(
   'register/addUser',
   async (user, thunkAPI) => {
     try {
-      const response = await axios.post('/users/signup', user);
-      currentToken.set(response.data.token);
+      const response = await axios.post('/users/register', user);
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue('Not register!');
@@ -30,7 +29,7 @@ export const logInUser = createAsyncThunk(
   async (user, thunkAPI) => {
     try {
       const response = await axios.post('/users/login', user);
-      currentToken.set(response.data.token);
+      currentToken.set(response.data.accessToken);
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue('Not founded!');
@@ -44,6 +43,7 @@ export const logOutUser = createAsyncThunk(
     try {
       await axios.post('/users/logout');
       currentToken.remove();
+      return null
     } catch (e) {
       return thunkAPI.rejectWithValue('Not founded!');
     }
@@ -54,12 +54,13 @@ export const getCurrentUser = createAsyncThunk(
   'tokin/getUser',
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
-    if (!state.phonebook.token) {
+    if (!state.phonebook.refreshToken) {
       return thunkAPI.rejectWithValue('Not founded!');
     }
-    currentToken.set(state.phonebook.token);
     try {
-      const response = await axios.get('/users/current');
+      const { phonebook: { refreshToken } } = state
+      const response = await axios.post('/users/refresh', { refreshToken});
+      currentToken.set(response.data.accessToken);
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue('Not founded!');

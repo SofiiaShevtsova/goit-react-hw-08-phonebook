@@ -20,6 +20,8 @@ const SignupSchema = Yup.object().shape({
     )
     .required('Required'),
 
+  email: Yup.string().required('Required'),
+
   number: Yup.mixed().test({
     name: 'number',
     message:
@@ -41,6 +43,7 @@ const FormAddContact = props => {
       <Formik
         initialValues={{
           name: ``,
+          email: ``,
           number: ``,
         }}
         validationSchema={SignupSchema}
@@ -55,7 +58,8 @@ const FormAddContact = props => {
           dispatch(
             addContact({
               name: values.name.trim(),
-              number: values.number.trim(),
+              phone: values.number.trim(),
+              email: values.email.trim(),
             })
           );
         }}
@@ -80,6 +84,21 @@ const FormAddContact = props => {
                 {props.errors.name && (
                   <FormErrorMessage id="feedback">
                     {props.errors.name}
+                  </FormErrorMessage>
+                )}
+              </FormControl>
+              <FormControl>
+                <FormLabel htmlFor="email">Email</FormLabel>
+                <Input
+                  as={Field}
+                  variant="outline"
+                  focusBorderColor="teal.400"
+                  type="text"
+                  name="email"
+                />
+                {props.errors.email && (
+                  <FormErrorMessage id="feedback">
+                    {props.errors.email}
                   </FormErrorMessage>
                 )}
               </FormControl>

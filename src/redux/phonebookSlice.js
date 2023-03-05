@@ -12,6 +12,8 @@ import {
 const initialState = {
   user: '',
   token: null,
+  refreshToken: null,
+  avatar: '',
   contacts: [],
   isLoading: false,
   error: null,
@@ -41,8 +43,7 @@ export const phonebookSlice = createSlice({
         statusProgress(state);
       })
       .addCase(registerNewUser.fulfilled, (state, action) => {
-        state.user = action.payload.user.name;
-        state.token = action.payload.token;
+        state.user = action.payload.user.email;
         state.isLoading = false;
         state.error = null;
       })
@@ -53,8 +54,10 @@ export const phonebookSlice = createSlice({
         statusProgress(state);
       })
       .addCase(logInUser.fulfilled, (state, action) => {
+        state.refreshToken = action.payload.refreshToken;
+        state.avatar = action.payload.user.avatarURL;
         state.user = action.payload.user.name;
-        state.token = action.payload.token;
+        state.token = action.payload.accessToken;
         state.isLoading = false;
         state.error = null;
       })
@@ -67,6 +70,8 @@ export const phonebookSlice = createSlice({
       .addCase(logOutUser.fulfilled, state => {
         state.user = '';
         state.token = null;
+        state.refreshToken = null;
+        state.avatar = '';
         state.isLoading = false;
         state.error = null;
       })
@@ -77,13 +82,16 @@ export const phonebookSlice = createSlice({
         statusProgress(state);
       })
       .addCase(getCurrentUser.fulfilled, (state, action) => {
-        state.user = action.payload.name;
+        state.refreshToken = action.payload.refreshToken;
+        state.avatar = action.payload.user.avatarURL;
+        state.user = action.payload.user.name;
+        state.token = action.payload.accessToken;
         state.isLoading = false;
         state.error = null;
       })
       .addCase(getCurrentUser.rejected, (state, action) => {
         state.isLoading = false;
-        state.token = null
+        state.token = null;
       })
 
       .addCase(getContacts.pending, state => {
@@ -113,7 +121,7 @@ export const phonebookSlice = createSlice({
       })
       .addCase(removeContact.fulfilled, (state, action) => {
         state.contacts = state.contacts.filter(
-          elem => elem.id !== action.payload
+          elem => elem._id !== action.payload
         );
         state.isLoading = false;
         state.error = null;

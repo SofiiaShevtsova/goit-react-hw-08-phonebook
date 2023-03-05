@@ -25,9 +25,9 @@ const ContactsList = props => {
       {contacts.map(elem => (
         <Contact
           name={elem.name}
-          phone={elem.number}
-          id={elem.id}
-          key={elem.id}
+          phone={elem.phone}
+          id={elem._id}
+          key={elem._id}
         />
       ))}
     </List>

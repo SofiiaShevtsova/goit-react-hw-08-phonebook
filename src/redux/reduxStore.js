@@ -16,7 +16,7 @@ import phonebookSlice from './phonebookSlice';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['token'],
+  whitelist: ['refreshToken'],
 };
 
 const persistedReducer = persistReducer(persistConfig, phonebookSlice);
