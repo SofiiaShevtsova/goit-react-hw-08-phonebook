@@ -29,7 +29,6 @@ const SignupSchema = Yup.object().shape({
       return /\w+[^\s]\w+@\w+\.\w{1,5}/.test(value);
     },
   }),
-
   password: Yup.string()
     .min(7, 'Must min 7')
     .max(25, 'Must max 25')

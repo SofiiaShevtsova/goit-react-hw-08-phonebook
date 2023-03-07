@@ -7,6 +7,7 @@ import {
   logInUser,
   logOutUser,
   getCurrentUser,
+  changeAvatar,
 } from './operationPhonebook';
 
 const initialState = {
@@ -43,7 +44,6 @@ export const phonebookSlice = createSlice({
         statusProgress(state);
       })
       .addCase(registerNewUser.fulfilled, (state, action) => {
-        state.user = action.payload.user.email;
         state.isLoading = false;
         state.error = null;
       })
@@ -92,6 +92,17 @@ export const phonebookSlice = createSlice({
       .addCase(getCurrentUser.rejected, (state, action) => {
         state.isLoading = false;
         state.token = null;
+      })
+      .addCase(changeAvatar.pending, state => {
+        statusProgress(state);
+      })
+      .addCase(changeAvatar.fulfilled, (state, action) => {
+        state.avatar = action.payload.avatarURL;
+        state.isLoading = false;
+        state.error = null;
+      })
+      .addCase(changeAvatar.rejected, (state, action) => {
+        statusError(state, action);
       })
 
       .addCase(getContacts.pending, state => {

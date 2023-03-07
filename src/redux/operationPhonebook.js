@@ -68,6 +68,25 @@ export const getCurrentUser = createAsyncThunk(
   }
 );
 
+export const changeAvatar = createAsyncThunk(
+  'avatars/change',
+  async (avatar, thunkAPI) => {
+    try {
+      console.dir(avatar);
+      const response = await axios.patch('/users/avatars', avatar, {
+  headers: {
+    "Content-Type": "multipart/form-data",
+  },
+      });
+      console.log(response.data);
+      return response.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue('Not register!');
+    }
+  }
+);
+
+
 export const getContacts = createAsyncThunk(
   'contacts/getContacts',
   async (_, thunkAPI) => {
