@@ -21,10 +21,12 @@ export const UserIn = () => {
         size={{ base: 'xs', md: 'md', lg: 'md' }}
         mr="30px"
         name="avatar"
-        href={userAvatar}
+        src={`https:${userAvatar}`}
         onClick={changeAvatar}
       />
-      {modalAvatar && <Avatars closeModal={changeAvatar} isOpen={ modalAvatar} />}
+      {modalAvatar && (
+        <Avatars closeModal={changeAvatar} isOpen={modalAvatar} />
+      )}
       <Button
         colorScheme="teal"
         size={{ base: 'xs', md: 'md', lg: 'md' }}

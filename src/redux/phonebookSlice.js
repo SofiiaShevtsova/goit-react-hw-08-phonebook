@@ -46,6 +46,7 @@ export const phonebookSlice = createSlice({
       .addCase(registerNewUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
+        state.error = "Confirm yours email!";
       })
       .addCase(registerNewUser.rejected, (state, action) => {
         statusError(state, action);
